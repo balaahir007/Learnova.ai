@@ -1,5 +1,6 @@
 import React from 'react';
 import useThemeStore from '../zustand/themeStore';
+import Logo from '../components/common/Logo';
 
 function Footer() {
   const {mode} = useThemeStore()
@@ -39,9 +40,7 @@ function Footer() {
           {/* Brand Section */}
           <div className="flex-1 min-w-[250px] m-5">
             <div className="mb-6">
-              <img src='./logo.png' className="w-auto h-8 mb-5 font-bold bg-gradient-to-r from-[#0097B2] to-[#00B2A9] bg-clip-text text-transparent">
-                
-              </img>
+             <Logo/>
               <p className={`${textSecondary} leading-relaxed transition-colors duration-300`}>
                 Empowering learners worldwide with high-quality courses and skills for tomorrow.
               </p>
