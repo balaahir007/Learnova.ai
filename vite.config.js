@@ -8,4 +8,7 @@ export default defineConfig({
   server: {
     host: true,
   },
+  preview: {
+    allowedHosts: ["learnova-ai-i9hw.onrender.com"],
+  },
 });
