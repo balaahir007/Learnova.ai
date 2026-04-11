@@ -2,7 +2,17 @@ import { Briefcase, MapPin, Clock, DollarSign, Users, MoreVertical, Eye, Edit, T
 import { useNavigate } from 'react-router-dom';
 import useJobStore from '../../zustand/recruiter/useJobStore';
 import {toast} from 'react-toastify'
-const JobCard = ({ job ={}, mode,onView }) => {
+const JobCard = ({ job = {
+  title: '',
+  company: '',
+  location: '',
+  type: '',
+  salary: '',
+  deadline: null,
+  applicants: 0,
+  tags: [],
+  id: null
+}, mode, onView }) => {
   const navigate = useNavigate()
   const {deleteJob} = useJobStore()
 
@@ -54,20 +64,22 @@ const JobCard = ({ job ={}, mode,onView }) => {
         </div>
 
         {/* Tags */}
-        <div className="flex flex-wrap gap-1.5 md:gap-2 mb-3 md:mb-4">
-          {job.tags.map((tag, index) => (
-            <span
-              key={index}
-              className={`px-2 md:px-3 py-0.5 md:py-1 rounded-full text-[10px] md:text-xs font-medium 
-            ${mode === 'dark'
-                  ? 'bg-[#2D4F50] text-[#00B2A9]'
-                  : 'bg-[#E0F2F5] text-[#0097B2]'
-                }`}
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
+        {Array.isArray(job.tags) && job.tags.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 md:gap-2 mb-3 md:mb-4">
+            {job.tags.map((tag, index) => (
+              <span
+                key={index}
+                className={`px-2 md:px-3 py-0.5 md:py-1 rounded-full text-[10px] md:text-xs font-medium 
+              ${mode === 'dark'
+                    ? 'bg-[#2D4F50] text-[#00B2A9]'
+                    : 'bg-[#E0F2F5] text-[#0097B2]'
+                  }`}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
 
         {/* Info Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-3 md:mb-4">
@@ -92,7 +104,7 @@ const JobCard = ({ job ={}, mode,onView }) => {
           <div className="flex items-center gap-2">
             <Clock className={`w-4 h-4 ${mode === 'dark' ? 'text-gray-400' : 'text-gray-500'}`} />
             <span className={`text-sm ${mode === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-              {new Date(job.deadline).toISOString().split('T')[0]}
+              {job.deadline ? new Date(job.deadline).toISOString().split('T')[0] : 'No deadline'}
             </span>
           </div>
         </div>

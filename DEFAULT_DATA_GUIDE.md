@@ -9,7 +9,7 @@ This guide explains how to use the comprehensive default data for Jobs and Hacka
 📁 `src/constants/defaultData.js`
 - Contains all mock data for the application
 - **New additions:**
-  - Extended MOCK_JOBS (5 jobs with complete details)
+  - Extended MOCK_JOBn S (5 jobs with complete details)
   - MOCK_HACKATHONS (6 hackathons with complete details)
   - Updated FULL_DEFAULT_DATA export
   - Updated FULL_MOCK_DATA export

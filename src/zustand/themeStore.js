@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 const useThemeStore = create((set) => {
   // get saved mode or default
-  const savedMode = localStorage.getItem("mode") || "light";
+  const savedMode = localStorage.getItem("mode") || "dark";
 
   // apply theme immediately when store is created
   if (savedMode === "dark") {
