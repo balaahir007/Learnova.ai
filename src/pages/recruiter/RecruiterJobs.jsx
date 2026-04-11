@@ -94,7 +94,7 @@ const RecruiterJobs = () => {
   // ];
 
   useEffect(() => {
-    if (Object.keys(jobs).length > 0) return;
+    if (Array.isArray(jobs) && jobs.length > 0) return;
     const getAllJobs = async () => {
       await fetchRecruiterJobs()
     }
@@ -102,12 +102,12 @@ const RecruiterJobs = () => {
   }, [])
   console.log("job Data : ", jobs)
 
-  const filteredJobs = jobs.filter(job => {
-    const matchesSearch = job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      job.company.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesFilter = filterType === 'all' || job.type.toLowerCase() === filterType.toLowerCase();
+  const filteredJobs = Array.isArray(jobs) ? jobs.filter(job => {
+    const matchesSearch = job.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      job.company?.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesFilter = filterType === 'all' || job.type?.toLowerCase() === filterType.toLowerCase();
     return matchesSearch && matchesFilter;
-  });
+  }) : [];
   const [selectedJob, setSelectedJob] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 

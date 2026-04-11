@@ -11,7 +11,8 @@ const useJobStore = create((set) => ({
     set({ loading: true, error: null });
     try {
       const res = await axiosInstance.get("/jobs/recruiter");
-      set({ jobs: res.data, loading: false });
+      const jobsData = Array.isArray(res.data) ? res.data : Array.isArray(res.data?.data) ? res.data.data : [];
+      set({ jobs: jobsData, loading: false });
     } catch (err) {
       set({
         error: err.response?.data?.error || "Failed to fetch jobs",
@@ -23,7 +24,8 @@ const useJobStore = create((set) => ({
     set({ loading: true, error: null });
     try {
       const res = await axiosInstance.get("/jobs");
-      set({ publicJobs: res.data, loading: false });
+      const jobsData = Array.isArray(res.data) ? res.data : Array.isArray(res.data?.data) ? res.data.data : [];
+      set({ publicJobs: jobsData, loading: false });
     } catch (err) {
       set({
         error: err.response?.data?.error || "Failed to fetch jobs",
@@ -51,12 +53,12 @@ const useJobStore = create((set) => ({
     set({ loading: true, error: null });
     try {
       const res = await axiosInstance.put(`/jobs/${id}`, data);
-         set((state) => ({
-      jobs: state.jobs.map((job) =>
-        job.id === id ? { ...job, ...res.data } : job
-      ),
-      loading: false,
-    }));
+      set((state) => ({
+        jobs: Array.isArray(state.jobs) ? state.jobs.map((job) =>
+          job.id === id ? { ...job, ...res.data } : job
+        ) : [],
+        loading: false,
+      }));
       return res.data;
     } catch (err) {
       set({
@@ -84,7 +86,7 @@ const useJobStore = create((set) => ({
     try {
       await axiosInstance.delete(`/jobs/${id}`);
       set((state) => ({
-        jobs: state.jobs.filter((job) => job.id !== id),
+        jobs: Array.isArray(state.jobs) ? state.jobs.filter((job) => job.id !== id) : [],
         loading: false,
       }));
     } catch (err) {

@@ -1,4 +1,4 @@
-  
+
 import React, { useEffect, useState } from 'react';
 import { Bookmark, Briefcase, Code2, Filter, X } from 'lucide-react';
 import HackathonCard from '../../card/teacher/HackathonCard';
@@ -183,10 +183,10 @@ const SavedPage = () => {
               Saved Jobs
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              {jobItem.map((job) => (
+              {Array.isArray(jobItem) && jobItem.map((job) => (
                 <JobList
                   mode={mode}
-                  key={job.id}
+                  key={job?.id}
                   job={job}
                   isSavedPage={true}
                 />
