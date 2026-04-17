@@ -17,11 +17,12 @@ const CourseCreatePage = () => {
     { id: 3, name: 'Business' },
     { id: 4, name: 'Marketing' }
   ]);
+  console.log("Initial categories:", categories);
 
   const [dataObj, setDataObj] = useState({
     title: '',
     description: '',
-    categoryId: '',
+    category: '',
     imageUrl: '',
     price: '',
     duration: '',
@@ -46,7 +47,7 @@ const CourseCreatePage = () => {
   const [editObj, setEditObj] = useState({
     title: false,
     description: false,
-    categoryId: false,
+    category: false,
     price: false,
     duration: false,
     level: false,
@@ -56,7 +57,7 @@ const CourseCreatePage = () => {
   const [savingObj, setSavingObj] = useState({
     title: false,
     description: false,
-    categoryId: false,
+    category: false,
     imageUrl: false,
     price: false,
     duration: false,
@@ -107,7 +108,7 @@ const CourseCreatePage = () => {
 
   const requireFields = [
     dataObj.title,
-    dataObj.categoryId,
+    // dataObj.category,
     dataObj.imageUrl,
     dataObj.description,
     dataObj.price
@@ -343,10 +344,10 @@ const CourseCreatePage = () => {
       toast.error("Please enter a course title");
       return;
     }
-    if (!dataObj.categoryId) {
-      toast.error("Please select a category");
-      return;
-    }
+    // if (!dataObj.category) {
+    //   toast.error("Please select a category");
+    //   return;
+    // }
     if (chapters.length === 0) {
       toast.error("Please add at least one chapter");
       return;
@@ -371,10 +372,10 @@ const CourseCreatePage = () => {
   const handlePublishToggle = async (e) => {
     const isPublished = e.target.checked;
 
-    if (isPublished && completedFields < totalFields) {
-      toast.error("Please complete all required fields before publishing");
-      return;
-    }
+    // if (isPublished && completedFields < totalFields) {
+    //   toast.error("Please complete all required fields before publishing");
+    //   return;
+    // }
 
     if (isPublished && chapters.length === 0) {
       toast.error("Please add at least one chapter before publishing");
@@ -589,45 +590,45 @@ const EditableField = ({ label, name, value, type = "text", placeholder, textare
                   <div className="flex items-center justify-between mb-3">
                     <h3 className="font-semibold text-gray-800 text-lg">Category</h3>
                     <button
-                      onClick={() => toggleEdit("categoryId")}
+                      onClick={() => toggleEdit("category")}
                       className="flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all 
                         hover:bg-blue-50 text-blue-600"
-                      disabled={editObj.categoryId}
+                      disabled={editObj.category}
                     >
                       <Pencil className="w-4 h-4" />
                       <span className="text-sm font-medium">Edit</span>
                     </button>
                   </div>
 
-                  {!editObj.categoryId ? (
+                  {!editObj.category ? (
                     <p className="text-gray-600">
-                      {categories.find(c => c.id === dataObj.categoryId)?.name || "No category selected"}
+                      {categories.find(c => c.id === dataObj.category)?.name || "No category selected"}
                     </p>
                   ) : (
                     <div className="flex flex-col gap-3 mt-2">
                       <select
-                        name="categoryId"
-                        value={dataObj.categoryId}
+                        name="category"
+                        value={dataObj.category}
                         onChange={onChange}
                         className="w-full px-4 py-3 border border-gray-300 bg-white rounded-lg 
                           focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        disabled={savingObj.categoryId}
+                        disabled={savingObj.category}
                       >
                         <option value="">Select a category</option>
-                        {categories.map(cat => (
+                        {categories.map((cat) => (
                           <option key={cat.id} value={cat.id}>{cat.name}</option>
                         ))}
                       </select>
                       <div className="flex gap-2">
                         <button
-                          onClick={() => submitField("categoryId")}
-                          disabled={savingObj.categoryId}
+                          onClick={() => submitField("category")}
+                          disabled={savingObj.category}
                           className="px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium"
                         >
-                          {savingObj.categoryId ? "Saving..." : "Save"}
+                          {savingObj.category ? "Saving..." : "Save"}
                         </button>
                         <button
-                          onClick={() => cancelEdit("categoryId")}
+                          onClick={() => cancelEdit("category")}
                           className="px-5 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 font-medium"
                         >
                           Cancel

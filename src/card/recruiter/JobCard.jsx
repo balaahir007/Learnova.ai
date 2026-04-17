@@ -96,9 +96,14 @@ const JobCard = ({ job = {
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <DollarSign className={`w-4 h-4 ${mode === 'dark' ? 'text-gray-400' : 'text-gray-500'}`} />
             <span className={`text-sm ${mode === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-              {job.salary}
+              {(() => {
+                const [minSalary, maxSalary] = job.salary.split('-') || [];
+
+                `dd`
+                return minSalary && maxSalary ? `${minSalary} -  ${maxSalary}` : job.salary;
+                
+              })()}
             </span>
           </div>
           <div className="flex items-center gap-2">
